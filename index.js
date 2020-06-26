@@ -112,7 +112,7 @@ function play(guild, song) {
     embed.setAuthor(client.user.username, client.user.avatarURL());
     embed.setColor('#f1c40f');
     embed.setDescription(`Run out of songs to play, disconnected`);
-    return message.channel.send(embed);
+    return serverQueue.textChannel.send(embed);
   }
 
   const dispatcher = serverQueue.connection
