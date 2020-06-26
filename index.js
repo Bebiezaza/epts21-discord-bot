@@ -109,7 +109,10 @@ function play(guild, song) {
   if (!song) {
     serverQueue.voiceChannel.leave();
     queue.delete(guild.id);
-    return;
+    embed.setAuthor(client.user.username, client.user.avatarURL());
+    embed.setColor('#f1c40f');
+    embed.setDescription(`Run out of songs to play, disconnected`);
+    return message.channel.send(embed);
   }
 
   const dispatcher = serverQueue.connection
