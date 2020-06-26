@@ -37,7 +37,10 @@ client.on("message", async message => {
     stop(message, serverQueue);
     return;
   } else {
-    message.channel.send("You need to enter a valid command!");
+    embed.setAuthor(client.user.username, client.user.avatarURL());
+    embed.setColor('#f1c40f');
+    embed.setDescription(`You need to enter a valid command!`);
+    message.channel.send(embed);
   }
 });
 
@@ -45,15 +48,18 @@ async function execute(message, serverQueue) {
   const args = message.content.split(" ");
 
   const voiceChannel = message.member.voice.channel;
-  if (!voiceChannel)
-    return message.channel.send(
-      "You need to be in a voice channel to play music!"
-    );
+  if (!voiceChannel) {
+    embed.setAuthor(client.user.username, client.user.avatarURL());
+    embed.setColor('#f1c40f');
+    embed.setDescription(`You need to be in a voice channel to play music!`);
+    return message.channel.send(embed);
+  }
   const permissions = voiceChannel.permissionsFor(message.client.user);
   if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
-    return message.channel.send(
-      "I need the permissions to join and speak in your voice channel!"
-    );
+    embed.setAuthor(client.user.username, client.user.avatarURL());
+    embed.setColor('#f1c40f');
+    embed.setDescription(`I need the permissions to join and speak in your voice channel!`);
+    return message.channel.send(embed);
   }
 
   const songInfo = await ytdl.getInfo(args[1]);
@@ -87,27 +93,12 @@ async function execute(message, serverQueue) {
     }
   } else {
     serverQueue.songs.push(song);
-    return message.channel.send(`**${song.title}** has been added to the queue!`);
+
+    embed.setAuthor(client.user.username, client.user.avatarURL());
+    embed.setColor('#f1c40f');
+    embed.setDescription(`**${song.title}** has been added to the queue`);
+    return message.channel.send(embed);
   }
-}
-
-function skip(message, serverQueue) {
-  if (!message.member.voice.channel)
-    return message.channel.send(
-      "You have to be in a voice channel to stop the music!"
-    );
-  if (!serverQueue)
-    return message.channel.send("There is no song that I could skip!");
-  serverQueue.connection.dispatcher.end();
-}
-
-function stop(message, serverQueue) {
-  if (!message.member.voice.channel)
-    return message.channel.send(
-      "You have to be in a voice channel to stop the music!"
-    );
-  serverQueue.songs = [];
-  serverQueue.connection.dispatcher.end();
 }
 
 function play(guild, song) {
@@ -126,7 +117,55 @@ function play(guild, song) {
     })
     .on("error", error => console.error(error));
   dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-  serverQueue.textChannel.send(`Start playing: **${song.title}**`);
+  
+  embed.setAuthor(client.user.username, client.user.avatarURL());
+  embed.setColor('#f1c40f');
+  embed.setDescription(`Start playing: **${song.title}**`);
+  serverQueue.textChannel.send(embed);
+}
+
+function skip(message, serverQueue) {
+  if (!message.member.voice.channel) {
+    embed.setAuthor(client.user.username, client.user.avatarURL());
+    embed.setColor('#f1c40f');
+    embed.setDescription(`You have to be in a voice channel to stop the music!`);
+    return message.channel.send(embed);
+    }
+  if (!serverQueue) {
+    embed.setAuthor(client.user.username, client.user.avatarURL());
+    embed.setColor('#f1c40f');
+    embed.setDescription(`There is no song that I could skip!`);
+    return message.channel.send(embed);
+  }
+  serverQueue.connection.dispatcher.end();
+  
+  embed.setAuthor(client.user.username, client.user.avatarURL());
+  embed.setColor('#f1c40f');
+  embed.setDescription(`Skipped`);
+  message.channel.send(embed);
+}
+
+function stop(message, serverQueue) {
+  if (!message.member.voice.channel) {
+  embed.setAuthor(client.user.username, client.user.avatarURL());
+  embed.setColor('#f1c40f');
+  embed.setDescription(`You have to be in a voice channel to stop the music!`);
+  return message.channel.send(embed);
+  }
+  if (!serverQueue) {
+    embed.setAuthor(client.user.username, client.user.avatarURL());
+    embed.setColor('#f1c40f');
+    embed.setDescription(`Nothing is playing`);
+    return message.channel.send(embed);
+  }
+
+  serverQueue.songs = [];
+  serverQueue.connection.dispatcher.end();
+
+  embed.setAuthor(client.user.username, client.user.avatarURL());
+  embed.setColor('#f1c40f');
+  embed.setDescription(`Skipped`);
+  message.channel.send(embed);
 }
 
 client.login(process.env.BOT_TOKEN);
