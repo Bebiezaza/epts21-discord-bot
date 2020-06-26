@@ -23,8 +23,10 @@ client.on("message", async message => {
   const serverQueue = queue.get(message.guild.id);
 
   if (message.content.startsWith(`${prefix}hellobot`)) {
-    const hello = require("./commands/message")
-    return hello(message);
+    embed.setAuthor(client.user.username, client.user.avatarURL());
+    embed.setColor('#f1c40f');
+    embed.setDescription(`hello people`);
+    return message.channel.send(embed);
   } else if (message.content.startsWith(`${prefix}play`)) {
     execute(message, serverQueue);
     return;
