@@ -39,12 +39,18 @@ client.on("message", async message => {
   } else if (message.content.startsWith(`${prefix}dc`)) {
     stop(message, serverQueue);
     return;
-  } else {
+  } else if (message.content.startsWith(`${prefix}nowplaying`)) {
+    nowPlaying(message,serverQueue)(message, serverQueue);
+    return;
+  } else if (message.content.startsWith(`${prefix}np`)) {
+    nowPlaying(message,serverQueue)(message, serverQueue);
+    return;
+  } /*else {
     embed.setAuthor(client.user.username, client.user.avatarURL());
     embed.setColor('#f1c40f');
     embed.setDescription(`You need to enter a valid command!`);
     message.channel.send(embed);
-  }
+  }*/
 });
 
 async function execute(message, serverQueue) {
@@ -167,11 +173,21 @@ function stop(message, serverQueue) {
 
   serverQueue.songs = [];
   serverQueue.connection.dispatcher.end();
+}
 
+function nowPlaying(message,serverQueue) {
+  if (!serverQueue) {
+    embed.setAuthor(client.user.username, client.user.avatarURL());
+    embed.setColor('#f1c40f');
+    embed.setDescription(`Nothing is currently playing!`);
+    return message.channel.send(embed);
+  }
+  
+  song = serverQueue.songs[0];
   embed.setAuthor(client.user.username, client.user.avatarURL());
   embed.setColor('#f1c40f');
-  embed.setDescription(`Skipped`);
-  message.channel.send(embed);
+  embed.setDescription(`Currently playing: **${song.title} (${song.url})**`);
+  serverQueue.textChannel.send(embed);
 }
 
 client.login(process.env.BOT_TOKEN);
