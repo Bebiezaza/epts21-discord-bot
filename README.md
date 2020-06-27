@@ -1,6 +1,13 @@
 # Music Bot
 For use with my school friends
 
+## Commands List
+* <b>?hellobot</b> = response test
+* <b>?play</b> = play/queue songs
+* <b>?skip</b> = skip a song
+* <b>?disconnect</b> / <b>?dc</b> = disconnect
+* <b>?nowplaying</b> / <b>?np</b> = shows now playing song
+
 ## Change Log
 ### 1.0.2 (Alpha)
 - disconnect shows "Skipped!" removed
