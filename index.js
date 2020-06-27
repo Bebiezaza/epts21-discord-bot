@@ -30,7 +30,13 @@ client.on("message", async message => {
   } else if (message.content.startsWith(`${prefix}play`)) {
     execute(message, serverQueue);
     return;
+  } else if (message.content.startsWith(`${prefix}p`)) {
+    execute(message, serverQueue);
+    return;
   } else if (message.content.startsWith(`${prefix}skip`)) {
+    skip(message, serverQueue);
+    return;
+  } else if (message.content.startsWith(`${prefix}s`)) {
     skip(message, serverQueue);
     return;
   } else if (message.content.startsWith(`${prefix}disconnect`)) {
