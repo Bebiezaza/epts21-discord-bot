@@ -40,10 +40,10 @@ client.on("message", async message => {
     stop(message, serverQueue);
     return;
   } else if (message.content.startsWith(`${prefix}nowplaying`)) {
-    nowPlaying(message,serverQueue)(message, serverQueue);
+    nowPlaying(message,serverQueue);
     return;
   } else if (message.content.startsWith(`${prefix}np`)) {
-    nowPlaying(message,serverQueue)(message, serverQueue);
+    nowPlaying(message,serverQueue);
     return;
   } /*else {
     embed.setAuthor(client.user.username, client.user.avatarURL());
@@ -182,7 +182,7 @@ function nowPlaying(message,serverQueue) {
     embed.setDescription(`Nothing is currently playing!`);
     return message.channel.send(embed);
   }
-  
+
   song = serverQueue.songs[0];
   embed.setAuthor(client.user.username, client.user.avatarURL());
   embed.setColor('#f1c40f');
