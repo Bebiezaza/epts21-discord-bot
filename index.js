@@ -1,6 +1,6 @@
 require("dotenv").config()
 const Discord = require('discord.js');
-const { prefix } = require('./config.json');
+const prefix = process.env.PREFIX;
 const fs = require("fs");
 const ytdl = require('ytdl-core');
 const embed = new Discord.MessageEmbed()
