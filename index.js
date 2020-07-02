@@ -16,40 +16,47 @@ fs.readdir("./events/", (err, files) => {
   })
 })
 
+const help = require("./commands/help");
+const hellobot = require("./commands/hellobot");
+const skip = require("./commands/skip");
+const stop = require("./commands/stop");
+const nowPlaying = require("./commands/nowPlaying");
+
 client.on("message", async message => {
   if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
 
   const serverQueue = queue.get(message.guild.id);
 
-  if (message.content.startsWith(`${prefix}hellobot`)) {
-    embed.setAuthor(client.user.username, client.user.avatarURL());
-    embed.setColor('#f1c40f');
-    embed.setDescription(`hello people`);
-    return message.channel.send(embed);
+  if (message.content === `${prefix}help`) {
+    help(client, message, embed);
+    return;
+  } else if (message.content === `${prefix}hellobot`) {
+    hellobot(client, message, embed);
+    return;
   } else if (message.content.startsWith(`${prefix}play`)) {
     execute(message, serverQueue);
     return;
   } else if (message.content.startsWith(`${prefix}p`)) {
     execute(message, serverQueue);
     return;
-  } else if (message.content.startsWith(`${prefix}skip`)) {
-    skip(message, serverQueue);
+  } else if (message.content === `${prefix}skip`) {
+    skip(client, message, serverQueue, embed);
     return;
-  } else if (message.content.startsWith(`${prefix}s`)) {
-    skip(message, serverQueue);
+  } else if (message.content === `${prefix}s`) {
+    skip(client, message, serverQueue, embed);
     return;
-  } else if (message.content.startsWith(`${prefix}disconnect`)) {
-    stop(message, serverQueue);
+  } else if (message.content === `${prefix}disconnect`) {
+    stop(client, message, serverQueue, embed);
     return;
-  } else if (message.content.startsWith(`${prefix}dc`)) {
-    stop(message, serverQueue);
+  } else if (message.content === `${prefix}dc`) {
+    stop(client, message, serverQueue, embed);
     return;
-  } else if (message.content.startsWith(`${prefix}nowplaying`)) {
-    nowPlaying(message,serverQueue);
+  } else if (message.content === `${prefix}nowplaying`) {
+    nowPlaying(client, message, serverQueue, embed);
     return;
-  } else if (message.content.startsWith(`${prefix}np`)) {
-    nowPlaying(message,serverQueue);
+  } else if (message.content === `${prefix}np`) {
+    nowPlaying(client, message, serverQueue, embed);
     return;
   } /*else {
     embed.setAuthor(client.user.username, client.user.avatarURL());
@@ -139,60 +146,6 @@ function play(guild, song) {
   embed.setAuthor(client.user.username, client.user.avatarURL());
   embed.setColor('#f1c40f');
   embed.setDescription(`Start playing: **${song.title}**`);
-  serverQueue.textChannel.send(embed);
-}
-
-function skip(message, serverQueue) {
-  if (!message.member.voice.channel) {
-    embed.setAuthor(client.user.username, client.user.avatarURL());
-    embed.setColor('#f1c40f');
-    embed.setDescription(`You have to be in a voice channel to stop the music!`);
-    return message.channel.send(embed);
-    }
-  if (!serverQueue) {
-    embed.setAuthor(client.user.username, client.user.avatarURL());
-    embed.setColor('#f1c40f');
-    embed.setDescription(`There is no song that I could skip!`);
-    return message.channel.send(embed);
-  }
-  serverQueue.connection.dispatcher.end();
-  
-  embed.setAuthor(client.user.username, client.user.avatarURL());
-  embed.setColor('#f1c40f');
-  embed.setDescription(`Skipped`);
-  message.channel.send(embed);
-}
-
-function stop(message, serverQueue) {
-  if (!message.member.voice.channel) {
-  embed.setAuthor(client.user.username, client.user.avatarURL());
-  embed.setColor('#f1c40f');
-  embed.setDescription(`You have to be in a voice channel to stop the music!`);
-  return message.channel.send(embed);
-  }
-  if (!serverQueue) {
-    embed.setAuthor(client.user.username, client.user.avatarURL());
-    embed.setColor('#f1c40f');
-    embed.setDescription(`Nothing is playing`);
-    return message.channel.send(embed);
-  }
-
-  serverQueue.songs = [];
-  serverQueue.connection.dispatcher.end();
-}
-
-function nowPlaying(message,serverQueue) {
-  if (!serverQueue) {
-    embed.setAuthor(client.user.username, client.user.avatarURL());
-    embed.setColor('#f1c40f');
-    embed.setDescription(`Nothing is currently playing!`);
-    return message.channel.send(embed);
-  }
-
-  song = serverQueue.songs[0];
-  embed.setAuthor(client.user.username, client.user.avatarURL());
-  embed.setColor('#f1c40f');
-  embed.setDescription(`Currently playing: **${song.title} (${song.url})**`);
   serverQueue.textChannel.send(embed);
 }
 

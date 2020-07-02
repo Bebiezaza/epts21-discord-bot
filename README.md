@@ -14,6 +14,10 @@ For use with my school friends
 * <b>{prefix}nowplaying</b> / <b>{prefix}np</b> = shows now playing song
 
 ## Change Log
+### 1.1.0 (Alpha)
+* Modularize the code
++ {prefix}help shows commands list
+
 ### 1.0.2 (Alpha)
 - disconnect shows "Skipped!" removed
 - invalid command text removed for now (will add back later)
