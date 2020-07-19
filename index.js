@@ -21,6 +21,9 @@ const hellobot = require("./commands/hellobot");
 const skip = require("./commands/skip");
 const stop = require("./commands/stop");
 const nowPlaying = require("./commands/nowPlaying");
+const playQueue = require("./commands/queue");
+
+var amountSong = 0;
 
 client.on("message", async message => {
   if (message.author.bot) return;
@@ -34,29 +37,20 @@ client.on("message", async message => {
   } else if (message.content === `${prefix}hellobot`) {
     hellobot(client, message, embed);
     return;
-  } else if (message.content.startsWith(`${prefix}play`)) {
+  } else if (message.content.startsWith(`${prefix}play`) || message.content.startsWith(`${prefix}p`)) {
     execute(message, serverQueue);
     return;
-  } else if (message.content.startsWith(`${prefix}p`)) {
-    execute(message, serverQueue);
-    return;
-  } else if (message.content === `${prefix}skip`) {
+  } else if (message.content === `${prefix}skip` || message.content === `${prefix}s`) {
     skip(client, message, serverQueue, embed);
     return;
-  } else if (message.content === `${prefix}s`) {
-    skip(client, message, serverQueue, embed);
-    return;
-  } else if (message.content === `${prefix}disconnect`) {
+  } else if (message.content === `${prefix}disconnect` || message.content === `${prefix}dc`) {
     stop(client, message, serverQueue, embed);
     return;
-  } else if (message.content === `${prefix}dc`) {
-    stop(client, message, serverQueue, embed);
-    return;
-  } else if (message.content === `${prefix}nowplaying`) {
+  } else if (message.content === `${prefix}nowplaying` || message.content === `${prefix}np`) {
     nowPlaying(client, message, serverQueue, embed);
     return;
-  } else if (message.content === `${prefix}np`) {
-    nowPlaying(client, message, serverQueue, embed);
+  } else if (message.content === `${prefix}queue` || message.content === `${prefix}q`) {
+    playQueue(client, message, serverQueue, amountSong, embed);
     return;
   } /*else {
     embed.setAuthor(client.user.username, client.user.avatarURL());
@@ -107,6 +101,9 @@ async function execute(message, serverQueue) {
     try {
       var connection = await voiceChannel.join();
       queueContruct.connection = connection;
+
+      amountSong = amountSong + 1;
+
       play(message.guild, queueContruct.songs[0]);
     } catch (err) {
       console.log(err);
@@ -116,8 +113,8 @@ async function execute(message, serverQueue) {
   } else {
     serverQueue.songs.push(song);
 
-    embed.setAuthor(client.user.username, client.user.avatarURL());
-    embed.setColor('#f1c40f');
+    amountSong = amountSong + 1;
+
     embed.setDescription(`**${song.title}** has been added to the queue`);
     return message.channel.send(embed);
   }
@@ -128,8 +125,6 @@ function play(guild, song) {
   if (!song) {
     serverQueue.voiceChannel.leave();
     queue.delete(guild.id);
-    embed.setAuthor(client.user.username, client.user.avatarURL());
-    embed.setColor('#f1c40f');
     embed.setDescription(`Run out of songs to play, disconnected`);
     return serverQueue.textChannel.send(embed);
   }
@@ -142,7 +137,8 @@ function play(guild, song) {
     })
     .on("error", error => console.error(error));
   dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-  
+  amountSong = amountSong - 1;
+
   embed.setAuthor(client.user.username, client.user.avatarURL());
   embed.setColor('#f1c40f');
   embed.setDescription(`Start playing: **${song.title}**`);

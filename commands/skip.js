@@ -13,8 +13,6 @@ module.exports = (client,message,serverQueue,embed) => {
     }
     serverQueue.connection.dispatcher.end();
     
-    embed.setAuthor(client.user.username, client.user.avatarURL());
-    embed.setColor('#f1c40f');
     embed.setDescription(`Skipped`);
     message.channel.send(embed);
 };

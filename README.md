@@ -12,8 +12,14 @@ For use with my school friends
 * <b>{prefix}skip</b> / <b>{prefix}s</b> = skip a song
 * <b>{prefix}disconnect</b> / <b>{prefix}dc</b> = disconnect
 * <b>{prefix}nowplaying</b> / <b>{prefix}np</b> = shows now playing song
+* <b>{prefix}queue</b> / <b>{prefix}q</b> = shows queue list
 
 ## Change Log
+### 1.1.1 (Alpha)
++ queue list system
+* remove some repetitive code
+* group commands (code wise)
+
 ### 1.1.0 (Alpha)
 * Modularize the code
 + {prefix}help shows commands list
