@@ -30,10 +30,15 @@ const sourcerand = require("./commands/random");
 var amountSong = 0;
 
 client.on("message", async message => {
-  if (message.author.bot) return;
-  if (!message.content.startsWith(prefix)) return;
-
   const serverQueue = queue.get(message.guild.id);
+
+  if (message.author.bot) return;
+  
+  if (message.content === "<@!" + client.user.id + ">") {
+    help(client, message, embed);
+  }
+
+  if (!message.content.startsWith(prefix)) return;
 
   if (message.content === `${prefix}help`) {
     help(client, message, embed);

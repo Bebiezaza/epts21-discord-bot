@@ -5,7 +5,7 @@ module.exports = (client,message,embed) => {
     embed.setColor('#f1c40f');
     embed.setDescription(`__**ALL COMMANDS**__\n
     __**General**__
-    **${prefix}help** = display commands
+    **${prefix}help** / **bot mentions** = display commands
     **${prefix}hellobot** = response test
     
     __**Music**__
