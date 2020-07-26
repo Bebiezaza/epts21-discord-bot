@@ -5,6 +5,13 @@
 * = Changed, Tweaked, Fixed
 
 
+1.1.2 (Alpha)
+	+ internet response (ping) test
+	+ number randomization to the number range my friend told me
+	+ invalid command text reimplemented
+	* disconnecting message changed
+	* command list accounts for the new utilities by separating categories
+
 1.1.1 (Alpha)
 	+ queue list system
 	* remove some repetitive code
