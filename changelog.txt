@@ -1,0 +1,31 @@
+==== Change Log ====
+
++ = Added
+- = Removed
+* = Changed, Tweaked, Fixed
+
+
+1.1.1 (Alpha)
+	+ queue list system
+	* remove some repetitive code
+	* group commands (code wise)
+
+1.1.0 (Alpha)
+	+ {prefix}help shows commands list
+	* Modularize the code
+
+1.0.2 (Alpha)
+	+ Now playing command
+	* disconnect shows "Skipped!" removed
+	- invalid command text removed for now (will add back later)
+
+1.0.1 (Alpha)
+	+ a notice message when the bot run out of songs and disconnects
+	* all messages are now embed messages
+
+1.0.0 (Alpha)
+	Initial Working Version
+		+ play songs from youtube URL
+		+ skip
+		+ disconnect
+		+ special responsive test
