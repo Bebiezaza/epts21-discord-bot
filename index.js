@@ -23,7 +23,6 @@ const client = new Discord.Client();
 const embed = new Discord.MessageEmbed();
 
 const queue = new Map();
-const serverQueue = queue.get(message.guild.id);
 
 //variable
 var amountSong = 0;
@@ -39,6 +38,7 @@ fs.readdir("./events/", (err, files) => {
 
 //get command
 client.on("message", async message => {
+  const serverQueue = queue.get(message.guild.id);
   if (message.author.bot) return; //don't continue if made by bot
   
   //help by bot mention
