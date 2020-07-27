@@ -1,6 +1,6 @@
 {
-  "name": "music-test",
-  "version": "1.1.4a",
+  "name": "epts21-bot",
+  "version": "1.2.0a",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
     "discord.js": "^12.2.0",

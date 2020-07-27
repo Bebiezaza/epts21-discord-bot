@@ -1,13 +1,34 @@
 require("dotenv").config()
+
+//import
+///modules
 const Discord = require('discord.js');
-const prefix = process.env.PREFIX;
 const fs = require("fs");
 const ytdl = require('ytdl-core');
-const embed = new Discord.MessageEmbed()
+///general
+const help = require("./commands/general/help");
+const hellobot = require("./commands/general/hellobot");
+///music
+const skip = require("./commands/music/skip");
+const stop = require("./commands/music/stop");
+const nowPlaying = require("./commands/music/nowPlaying");
+const playQueue = require("./commands/music/queue");
+///util
+const ping = require("./commands/util/ping");
+const random = require("./commands/util/random");
 
+//constant
+const prefix = process.env.PREFIX;
 const client = new Discord.Client();
-const queue = new Map();
+const embed = new Discord.MessageEmbed();
 
+const queue = new Map();
+const serverQueue = queue.get(message.guild.id);
+
+//variable
+var amountSong = 0;
+
+//init
 fs.readdir("./events/", (err, files) => {
   files.forEach(file => {
     const eventHandler = require(`./events/${file}`)
@@ -16,60 +37,73 @@ fs.readdir("./events/", (err, files) => {
   })
 })
 
-const help = require("./commands/help");
-const hellobot = require("./commands/hellobot");
-
-const skip = require("./commands/skip");
-const stop = require("./commands/stop");
-const nowPlaying = require("./commands/nowPlaying");
-const playQueue = require("./commands/queue");
-
-const ping = require("./commands/ping");
-const random = require("./commands/random");
-
-var amountSong = 0;
-
+//get command
 client.on("message", async message => {
-  const serverQueue = queue.get(message.guild.id);
-
-  if (message.author.bot) return;
+  if (message.author.bot) return; //don't continue if made by bot
   
+  //help by bot mention
   if (message.content === "<@!" + client.user.id + ">") {
     help(client, message, embed);
   }
 
-  if (!message.content.startsWith(prefix)) return;
+  if (!message.content.startsWith(prefix)) return; //don't continue if it doesn't start with prefix
   
-  if (message.content === `${prefix}help`) {
+  //general
+  if (message.content === `${prefix}help`)
+  {
     help(client, message, embed);
     return;
-  } else if (message.content === `${prefix}hellobot`) {
+  } 
+  else if (message.content === `${prefix}hellobot`)
+  {
     hellobot(client, message, embed);
     return;
-  } else if (message.content.startsWith(`${prefix}play`) || message.content.startsWith(`${prefix}p`)) {
+  } 
+  //music
+  else if (message.content.startsWith(`${prefix}play`) || message.content.startsWith(`${prefix}p`))
+  {
     execute(message, serverQueue);
     return;
-  } else if (message.content === `${prefix}skip` || message.content === `${prefix}s`) {
+  }
+  else if (message.content === `${prefix}skip` || message.content === `${prefix}s`)
+  {
     skip(client, message, serverQueue, embed);
     return;
-  } else if (message.content === `${prefix}disconnect` || message.content === `${prefix}dc`) {
+  }
+  else if (message.content === `${prefix}disconnect` || message.content === `${prefix}dc`)
+  {
     stop(client, message, serverQueue, embed);
     return;
-  } else if (message.content === `${prefix}nowplaying` || message.content === `${prefix}np`) {
+  }
+  else if (message.content === `${prefix}nowplaying` || message.content === `${prefix}np`)
+  {
     nowPlaying(client, message, serverQueue, embed);
     return;
-  } else if (message.content === `${prefix}queue` || message.content === `${prefix}q`) {
+  }
+  else if (message.content === `${prefix}queue` || message.content === `${prefix}q`)
+  {
     playQueue(client, message, serverQueue, amountSong, embed);
     return;
-  } else if (message.content === `${prefix}nettest`) {
+  } 
+  //util
+  else if (message.content === `${prefix}nettest`)
+  {
     ping(message);
     return;
-  } else if (message.content === `${prefix}sourcerand`) {
+  }
+  else if (message.content === `${prefix}sourcerand`)
+  {
     random("source", message, 1, 320000);
-  } else if (message.content === `${prefix}random` || message.content.startsWith(`${prefix}r`)) {
+    return;
+  }
+  else if (message.content === `${prefix}random` || message.content.startsWith(`${prefix}r`))
+  {
     const randargs = message.content.split(" ");
     random("normal", message, randargs[1], randargs[2], embed, prefix);
-  } else {
+  }
+  //not a valid command
+  else
+  {
     embed.setAuthor(client.user.username, client.user.avatarURL());
     embed.setColor('#f1c40f');
     embed.setDescription(`You need to enter a valid command!`);
@@ -132,6 +166,8 @@ async function execute(message, serverQueue) {
 
     amountSong = amountSong + 1;
 
+    embed.setAuthor(client.user.username, client.user.avatarURL());
+    embed.setColor('#f1c40f');
     embed.setDescription(`**${song.title}** has been added to the queue`);
     return message.channel.send(embed);
   }
@@ -142,6 +178,8 @@ function play(guild, song) {
   if (!song) {
     serverQueue.voiceChannel.leave();
     queue.delete(guild.id);
+    embed.setAuthor(client.user.username, client.user.avatarURL());
+    embed.setColor('#f1c40f');
     embed.setDescription(`Disconnected`);
     return serverQueue.textChannel.send(embed);
   }

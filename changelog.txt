@@ -5,6 +5,10 @@
 * = Changed, Tweaked, Fixed
 
 
+1.2.0 (Alpha)
+	* index.js code rearrangement
+	* commands file separate into different category folder
+	
 1.1.4 (Alpha)
 	+ Random Number Generator
 	

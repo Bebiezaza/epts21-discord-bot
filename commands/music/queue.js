@@ -21,7 +21,8 @@ module.exports = (client,message,serverQueue,amountSong,embed) => {
   song = serverQueue.songs[amountSong];
   text = text + `\n${amountSong}) **${song.title}**`;
   }
-  
+  embed.setAuthor(client.user.username, client.user.avatarURL());
+  embed.setColor('#f1c40f');
   embed.setDescription(text);
 
   serverQueue.textChannel.send(embed);
