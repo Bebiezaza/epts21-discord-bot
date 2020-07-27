@@ -1,7 +1,7 @@
 module.exports = client => {
     client.user.setPresence({
         activity: {
-            name: 'with Alpha 1.1.3!!'
+            name: 'with Alpha 1.1.4!!'
         }
     });
     console.log('Ready!');

@@ -25,7 +25,7 @@ const nowPlaying = require("./commands/nowPlaying");
 const playQueue = require("./commands/queue");
 
 const ping = require("./commands/ping");
-const sourcerand = require("./commands/random");
+const random = require("./commands/random");
 
 var amountSong = 0;
 
@@ -39,7 +39,7 @@ client.on("message", async message => {
   }
 
   if (!message.content.startsWith(prefix)) return;
-
+  
   if (message.content === `${prefix}help`) {
     help(client, message, embed);
     return;
@@ -65,8 +65,10 @@ client.on("message", async message => {
     ping(message);
     return;
   } else if (message.content === `${prefix}sourcerand`) {
-    sourcerand(message);
-    return;
+    random("source", message, 1, 320000);
+  } else if (message.content === `${prefix}random` || message.content.startsWith(`${prefix}r`)) {
+    const randargs = message.content.split(" ");
+    random("normal", message, randargs[1], randargs[2], embed, prefix);
   } else {
     embed.setAuthor(client.user.username, client.user.avatarURL());
     embed.setColor('#f1c40f');

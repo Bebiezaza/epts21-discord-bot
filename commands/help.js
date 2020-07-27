@@ -15,9 +15,10 @@ module.exports = (client,message,embed) => {
     **${prefix}skip** / **${prefix}s**= skip a song
     **${prefix}disconnect** / **${prefix}dc** = disconnect
     
-    __**Utilities**__
+    __**Utility**__
     **${prefix}nettest** = ping test
-    **${prefix}sourcerand** = source randomization, result not guaranteed`);
+    **${prefix}sourcerand** = source randomization, result not guaranteed
+    **${prefix}random [min] [max]** / **${prefix}r [min] [max]** = random number generator`);
 
     return message.channel.send(embed);
 };

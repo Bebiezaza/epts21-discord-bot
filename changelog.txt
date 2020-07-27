@@ -5,6 +5,9 @@
 * = Changed, Tweaked, Fixed
 
 
+1.1.4 (Alpha)
+	+ Random Number Generator
+	
 1.1.3 (Alpha)
 	+ mentioning the bot now shows help
 
