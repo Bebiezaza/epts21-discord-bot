@@ -5,6 +5,9 @@
 * = Changed, Tweaked, Fixed
 
 
+1.2.2 (Alpha)
+	+ reset command, in case the bot decided to not play any song
+
 1.2.1 (Alpha)
 	* wrong RNG agrument notice bug fixed
 	* ping test is actually Discord's API ping, command changed accordingly

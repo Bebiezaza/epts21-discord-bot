@@ -13,6 +13,7 @@ const skip = require("./commands/music/skip");
 const stop = require("./commands/music/stop");
 const nowPlaying = require("./commands/music/nowPlaying");
 const playQueue = require("./commands/music/queue");
+const reset = require("./commands/music/reset");
 ///util
 const ping = require("./commands/util/ping");
 const random = require("./commands/util/random");
@@ -83,6 +84,11 @@ client.on("message", async message => {
   else if (message.content === `${prefix}queue` || message.content === `${prefix}q`)
   {
     playQueue(client, message, serverQueue, amountSong, embed);
+    return;
+  } 
+  else if (message.content === `${prefix}reset`)
+  {
+    reset(client, message, queue, embed);
     return;
   } 
   //util
