@@ -5,12 +5,16 @@
 * = Changed, Tweaked, Fixed
 
 
+1.2.1 (Alpha)
+	* wrong RNG agrument notice bug fixed
+	* ping test is actually Discord's API ping, command changed accordingly
+
 1.2.0 (Alpha)
 	* index.js code rearrangement
 	* commands file separate into different category folder
 	
 1.1.4 (Alpha)
-	+ Random Number Generator
+	+ custom random number generator
 	
 1.1.3 (Alpha)
 	+ mentioning the bot now shows help
@@ -29,11 +33,11 @@
 
 1.1.0 (Alpha)
 	+ {prefix}help shows commands list
-	* Modularize the code
+	* modularize the code
 
 1.0.2 (Alpha)
-	+ Now playing command
-	* disconnect shows "Skipped!" removed
+	+ now-playing command
+	* disconnect shows "Skipped!" bug fixed
 	- invalid command text removed for now (will add back later)
 
 1.0.1 (Alpha)
@@ -41,7 +45,7 @@
 	* all messages are now embed messages
 
 1.0.0 (Alpha)
-	Initial Working Version
+	initial Working Version
 		+ play songs from youtube URL
 		+ skip
 		+ disconnect

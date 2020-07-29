@@ -1,6 +1,6 @@
 module.exports = (identity,message,min,max,embed,prefix) => {
   var rand = parseInt(Math.floor(Math.random() * (max - min + 1))) + parseInt(min);
-  if (identity === "source") 
+  if (identity === "sauce") 
   {
     return message.channel.send(rand + "\nThis post was made by a random number generator\nresult not guaranteed");
   } 
@@ -8,7 +8,11 @@ module.exports = (identity,message,min,max,embed,prefix) => {
   {
     message.delete({ timeout: 100 });
 
-    if (max === undefined)
+    if (min === undefined)
+    {
+      embed.setDescription(`**You forgot both input.\n __Usage:__ ${prefix}random [min] [max]** or **${prefix}r [min] [max]** \n\nRequested by <@!` + message.author + `>`);
+    }
+    else if (max === undefined)
     {
       embed.setDescription(`**You forgot the second input.\n __Usage:__ ${prefix}random [min] [max]** or **${prefix}r [min] [max]** \n\nRequested by <@!` + message.author + `>`);
     }

@@ -91,12 +91,12 @@ client.on("message", async message => {
     ping(message);
     return;
   }
-  else if (message.content === `${prefix}sourcerand`)
+  else if (message.content === `${prefix}saucerand`)
   {
-    random("source", message, 1, 320000);
+    random("sauce", message, 1, 320000);
     return;
   }
-  else if (message.content === `${prefix}random` || message.content.startsWith(`${prefix}r`))
+  else if (message.content.startsWith(`${prefix}random`) || message.content.startsWith(`${prefix}r`))
   {
     const randargs = message.content.split(" ");
     random("normal", message, randargs[1], randargs[2], embed, prefix);

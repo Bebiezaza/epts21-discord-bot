@@ -1,7 +1,7 @@
 const prefix = process.env.PREFIX;
 
 module.exports = (client,message,embed) => {
-    embed.setAuthor(client.user.username, client.user.avatarURL());
+    embed.setAuthor(client.user.username + " Alpha 1.2.1", client.user.avatarURL());
     embed.setColor('#f1c40f');
     embed.setDescription(`__**ALL COMMANDS**__\n
     __**General**__
@@ -16,8 +16,8 @@ module.exports = (client,message,embed) => {
     **${prefix}disconnect** / **${prefix}dc** = disconnect
     
     __**Utility**__
-    **${prefix}nettest** = ping test
-    **${prefix}sourcerand** = source randomization, result not guaranteed
+    **${prefix}apitest** = Discord's API responsiveness test
+    **${prefix}saucerand** = source randomization, result not guaranteed
     **${prefix}random [min] [max]** / **${prefix}r [min] [max]** = random number generator`);
 
     return message.channel.send(embed);
