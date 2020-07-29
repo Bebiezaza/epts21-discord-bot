@@ -86,7 +86,7 @@ client.on("message", async message => {
     return;
   } 
   //util
-  else if (message.content === `${prefix}nettest`)
+  else if (message.content === `${prefix}apitest`)
   {
     ping(message);
     return;
