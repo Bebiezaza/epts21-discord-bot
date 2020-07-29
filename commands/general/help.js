@@ -1,7 +1,7 @@
 const prefix = process.env.PREFIX;
 
 module.exports = (client,message,embed) => {
-    embed.setAuthor(client.user.username + " - Alpha 1.2.3", client.user.avatarURL());
+    embed.setAuthor(client.user.username + " - Alpha 1.2.3_02", client.user.avatarURL());
     embed.setColor('#f1c40f');
     embed.setDescription(`__**ALL COMMANDS**__\n
     __**General**__

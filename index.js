@@ -202,7 +202,7 @@ function play(guild, song) {
     .on("finish", () => {
       serverQueue.songs.shift();
 
-      if (serverQueue.songs[0].url = "deleted")
+      while(serverQueue.songs[0].url == "deleted")
       {
         serverQueue.songs.shift();
         amountSong = amountSong - 1;
