@@ -13,6 +13,7 @@ const skip = require("./commands/music/skip");
 const stop = require("./commands/music/stop");
 const nowPlaying = require("./commands/music/nowPlaying");
 const playQueue = require("./commands/music/queue");
+const remove = require("./commands/music/remove");
 const reset = require("./commands/music/reset");
 ///util
 const ping = require("./commands/util/ping");
@@ -84,6 +85,12 @@ client.on("message", async message => {
   else if (message.content === `${prefix}queue` || message.content === `${prefix}q`)
   {
     playQueue(client, message, serverQueue, amountSong, embed);
+    return;
+  } 
+  else if (message.content.startsWith(`${prefix}remove`))
+  {
+    const args = message.content.split(" ");
+    remove(client, message, serverQueue, args[1], embed)
     return;
   } 
   else if (message.content === `${prefix}reset`)
@@ -194,6 +201,13 @@ function play(guild, song) {
     .play(ytdl(song.url))
     .on("finish", () => {
       serverQueue.songs.shift();
+
+      if (serverQueue.songs[0].url = "deleted")
+      {
+        serverQueue.songs.shift();
+        amountSong = amountSong - 1;
+      }
+
       play(guild, serverQueue.songs[0]);
     })
     .on("error", error => console.error(error));

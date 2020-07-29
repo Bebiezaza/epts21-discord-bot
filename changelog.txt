@@ -5,6 +5,9 @@
 * = Changed, Tweaked, Fixed
 
 
+1.2.3 (Alpha)
+	+ ability to remove song mid-queue
+
 1.2.2 (Alpha)
 	+ reset command, in case the bot decided to not play any song
 
