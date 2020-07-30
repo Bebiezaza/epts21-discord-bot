@@ -5,6 +5,9 @@
 * = Changed, Tweaked, Fixed
 
 
+1.2.3_03 (Alpha)
+	* changed removed songs from the queue from **~~deleted~~** to **~~removed~~**
+	
 1.2.3_02 (Alpha)
 	* fixed removing songs adjacent to each other causing crash
 

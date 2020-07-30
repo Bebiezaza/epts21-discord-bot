@@ -13,7 +13,7 @@ module.exports = (client,message,serverQueue,removeSong,embed) => {
   embed.setColor('#f1c40f');
   embed.setDescription(`**${song.title}** removed`);
 
-  song.title = "~~deleted~~";
+  song.title = "~~removed~~";
   song.url = "deleted";
 
   serverQueue.textChannel.send(embed);
