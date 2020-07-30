@@ -5,6 +5,9 @@
 * = Changed, Tweaked, Fixed
 
 
+1.2.3_04 (Alpha)
+	* fixed unexpected crash if playing only one song
+
 1.2.3_03 (Alpha)
 	* changed removed songs from the queue from **~~deleted~~** to **~~removed~~**
 	

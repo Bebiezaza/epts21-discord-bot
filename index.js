@@ -188,6 +188,7 @@ async function execute(message, serverQueue) {
 
 function play(guild, song) {
   const serverQueue = queue.get(guild.id);
+
   if (!song) {
     serverQueue.voiceChannel.leave();
     queue.delete(guild.id);
@@ -195,19 +196,20 @@ function play(guild, song) {
     embed.setColor('#f1c40f');
     embed.setDescription(`Disconnected`);
     return serverQueue.textChannel.send(embed);
-  }
-
+  } 
+  else if (song.url == "deleted")
+  {
+    serverQueue.songs.shift();
+    amountSong = amountSong - 1;
+    play(guild, serverQueue.songs[0]);
+  } 
+  else 
+  {
   const dispatcher = serverQueue.connection
     .play(ytdl(song.url))
     .on("finish", () => {
       serverQueue.songs.shift();
-
-      while(serverQueue.songs[0].url == "deleted")
-      {
-        serverQueue.songs.shift();
-        amountSong = amountSong - 1;
-      }
-
+        
       play(guild, serverQueue.songs[0]);
     })
     .on("error", error => console.error(error));
@@ -218,6 +220,7 @@ function play(guild, song) {
   embed.setColor('#f1c40f');
   embed.setDescription(`Start playing: **${song.title}**`);
   serverQueue.textChannel.send(embed);
+  }
 }
 
 client.login(process.env.BOT_TOKEN);
