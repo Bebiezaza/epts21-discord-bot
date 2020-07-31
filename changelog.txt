@@ -36,7 +36,7 @@
 
 1.1.2 (Alpha)
 	+ internet response (ping) test
-	+ number randomization to the number range my friend told me
+	+ sauce randomization, with guide from someone else 
 	+ invalid command text reimplemented
 	* disconnecting message changed
 	* command list accounts for the new utilities by separating categories
