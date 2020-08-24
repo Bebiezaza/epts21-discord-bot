@@ -18,6 +18,7 @@ const reset = require("./commands/music/reset");
 ///util
 const ping = require("./commands/util/ping");
 const random = require("./commands/util/random");
+const purge = require("./commands/util/purge");
 
 //constant
 const prefix = process.env.PREFIX;
@@ -46,6 +47,11 @@ client.on("message", async message => {
   //help by bot mention
   if (message.content === "<@!" + client.user.id + ">") {
     help(client, message, embed);
+  }
+
+  if (message.content.startsWith("<@!" + client.user.id + ">" + " purge")) {
+    const args = message.content.split(" ");
+    purge(client, message, embed, args[2]);
   }
 
   if (!message.content.startsWith(prefix)) return; //don't continue if it doesn't start with prefix
