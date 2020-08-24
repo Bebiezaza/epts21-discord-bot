@@ -25,6 +25,17 @@ module.exports = (client,message,embed,args) => {
   }
   else
   {
-    message.channel.bulkDelete(parseInt(args, 10) + parseInt('1', 10));
+    if (message.member.hasPermission('ADMINISTRATOR') || message.member.hasPermission('MANAGE_MESSAGES'))
+    {
+      message.channel.bulkDelete(parseInt(args, 10) + parseInt('1', 10));
+    }
+    else
+    {
+      embed.setAuthor(client.user.username, client.user.avatarURL());
+      embed.setColor('#f1c40f');
+      embed.setDescription(`You don\'t have the permission to delete messages`);
+      message.delete();
+      message.channel.send(embed);
+    }  
   }
 };

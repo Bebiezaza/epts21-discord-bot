@@ -5,6 +5,9 @@
 * = Changed, Tweaked, Fixed
 
 
+1.2.4_01 (Alpha)
+	* chat bulkdelete abuse prevention
+
 1.2.4 (Alpha)
 	+ chat bulkdelete to a specific number of messages
 

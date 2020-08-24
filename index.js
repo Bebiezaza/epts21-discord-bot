@@ -47,11 +47,13 @@ client.on("message", async message => {
   //help by bot mention
   if (message.content === "<@!" + client.user.id + ">") {
     help(client, message, embed);
+    return;
   }
 
   if (message.content.startsWith("<@!" + client.user.id + ">" + " purge")) {
     const args = message.content.split(" ");
     purge(client, message, embed, args[2]);
+    return;
   }
 
   if (!message.content.startsWith(prefix)) return; //don't continue if it doesn't start with prefix
