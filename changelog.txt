@@ -5,6 +5,10 @@
 * = Changed, Tweaked, Fixed
 
 
+1.2.4_02 (Alpha)
+	* chat bulkdelete now working again
+	- music system is down
+
 1.2.4_01 (Alpha)
 	* chat bulkdelete abuse prevention
 

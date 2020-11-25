@@ -20,6 +20,8 @@ const ping = require("./commands/util/ping");
 const random = require("./commands/util/random");
 const purge = require("./commands/util/purge");
 
+const dead = require("./commands/general/systemdown");
+
 //constant
 const prefix = process.env.PREFIX;
 const client = new Discord.Client();
@@ -43,16 +45,16 @@ fs.readdir("./events/", (err, files) => {
 client.on("message", async message => {
   const serverQueue = queue.get(message.guild.id);
   if (message.author.bot) return; //don't continue if made by bot
-  
-  //help by bot mention
-  if (message.content === "<@!" + client.user.id + ">") {
-    help(client, message, embed);
-    return;
-  }
 
   if (message.content.startsWith("<@!" + client.user.id + ">" + " purge")) {
     const args = message.content.split(" ");
     purge(client, message, embed, args[2]);
+    return;
+  }
+  
+  //help by bot mention
+  if (message.content === "<@!" + client.user.id + ">") {
+    help(client, message, embed);
     return;
   }
 
@@ -72,38 +74,38 @@ client.on("message", async message => {
   //music
   else if (message.content.startsWith(`${prefix}play`) || message.content.startsWith(`${prefix}p`))
   {
-    execute(message, serverQueue);
+    dead(client, message, embed);//execute(message, serverQueue);
     return;
   }
   else if (message.content === `${prefix}skip` || message.content === `${prefix}s`)
   {
-    skip(client, message, serverQueue, embed);
+    dead(client, message, embed);//skip(client, message, serverQueue, embed);
     return;
   }
   else if (message.content === `${prefix}disconnect` || message.content === `${prefix}dc`)
   {
-    stop(client, message, serverQueue, embed);
+    dead(client, message, embed);//stop(client, message, serverQueue, embed);
     return;
   }
   else if (message.content === `${prefix}nowplaying` || message.content === `${prefix}np`)
   {
-    nowPlaying(client, message, serverQueue, embed);
+    dead(client, message, embed);//nowPlaying(client, message, serverQueue, embed);
     return;
   }
   else if (message.content === `${prefix}queue` || message.content === `${prefix}q`)
   {
-    playQueue(client, message, serverQueue, amountSong, embed);
+    dead(client, message, embed);//playQueue(client, message, serverQueue, amountSong, embed);
     return;
   } 
   else if (message.content.startsWith(`${prefix}remove`))
   {
-    const args = message.content.split(" ");
-    remove(client, message, serverQueue, args[1], embed)
+    //const args = message.content.split(" ");
+    dead(client, message, embed);//remove(client, message, serverQueue, args[1], embed)
     return;
   } 
   else if (message.content === `${prefix}reset`)
   {
-    reset(client, message, queue, embed);
+    dead(client, message, embed);//reset(client, message, queue, embed);
     return;
   } 
   //util
@@ -155,6 +157,8 @@ async function execute(message, serverQueue) {
     title: songInfo.title,
     url: songInfo.video_url
   };
+
+  message.channel.send(url);
 
   if (!serverQueue) {
     const queueContruct = {
